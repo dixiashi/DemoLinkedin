@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page - My ASP.NET Application</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/site.css" rel="stylesheet" />
+    <script src="Scripts/modernizr-2.6.2.js"></script>
+    <script src="Scripts/jquery-3.0.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/respond.js"></script>
+    <script src="Scripts/jQuery.tmpl.js"></script>
+
+    <script type="text/javascript" src="//platform.linkedin.com/in.js">
+        api_key: 77e8mfrek1rocm
+        onLoad: onLinkedInLoad
+        authorize: true
+    </script>
+
+    <script type="text/javascript">
+        // Setup an event listener to make an API call once auth is complete
+        function onLinkedInLoad() {
+            var isAuthorized = IN.User.isAuthorized();
+            if (isAuthorized) {
+                IN.Event.on(IN, "auth", getProfileData);
+
+                //https://api.linkedin.com/v1/people/id=abcdefg
+                var url = "/people/id=sjBVrOoh8M?format=json"
+                IN.API.Raw(url).result(onSuccess).error(onError);
+
+
+                //https://api.linkedin.com/v1/people/~?secure-urls=true
+                url = "/people/~?secure-urls=false&format=json"
+                IN.API.Raw(url).result(onSuccess).error(onError);
+
+
+            } else {
+                IN.User.authorize(onLinkedInLoad, callbackScope);
+                alert(false);
+            }
+        }
+
+        // Handle the successful return from the API call
+        function onSuccess(data) {
+            console.log(data);
+        }
+
+        // Handle an error response from the API call
+        function onError(error) {
+            console.log(error);
+        }
+
+        function randerProfileInfo(data) {
+            //firstName: "Qiang", headline: "SDE3 at Wicresoft", id: "sjBVrOoh8M", lastName: "(Wicresoft)", siteStandardProfileRequest: { … }
+            $("#profileTemplate").tmpl(data).appendTo("#profileContainer");
+        }
+
+        // Use the API call wrapper to request the member's basic profile data
+        function getProfileData() {
+            IN.API.Raw("/people/~:(id,firstName,lastName,headline,num-connections,picture-url)?format=json").result(randerProfileInfo).error(onError);
+        }
+
+        var loading;
+        loading = loading || (function () {
+
+            return {
+                showPleaseWait: function () {
+                    $("#pleaseWaitDialog").modal();
+                },
+                hidePleaseWait: function () {
+                    $("#pleaseWaitDialog").modal('hide');
+                },
+
+            };
+        })();
+
+        $(document).ready(function () {
+            $("#showContent").on("change", function (event) {
+
+                if ($(this).prop("checked")) {
+                    $("#contentSection").attr("class", "");
+
+                } else {
+                    $("#contentSection").attr("class", "hidden");
+                }
+            });
+
+            $("#btnPublishNewActivity").on("click", function (event) {
+                if (!IN.User.isAuthorized()) {
+                    IN.User.authorize(onLinkedInLoad);
+                    return;
+                }
+
+                var data = {};
+                if ($("#showContent").prop("checked")) {
+                    var content = {};
+                    $("form input[type='text']").each(function (index, value) {
+                        content[$(value).attr("id")] = $(value).val();
+                    });
+
+                    data = {
+                        comment: $("#Comment").val(),
+                        content: content,
+                        visibility: {
+                            code: "anyone"
+                        }
+                    };
+
+                } else {
+                    data = {
+                        comment: $("#Comment").val(),
+                        visibility: {
+                            code: "anyone"
+                        }
+                    };
+                }
+
+                data.comment = "This call from the clinet javascript side, not the server! " + data.comment
+                console.log(data);
+
+                var randomData =
+                    {
+                        "comment": "This is a test about Linkedin communicated with thrid APP. ",
+                        "content": {
+                            "title": "Wicrosoft",
+                            "description": "This is a test about Linkedin communicated with third APP.",
+                            "submitted-url": "http://www.wicresoft.com/en/index.aspx",
+                            "submitted-image-url": "http://www.wicresoft.com/Styles/images/logo_ws.gif"
+                        },
+                        "visibility": {
+                            "code": "anyone"
+                        }
+                    }
+
+
+                loading.showPleaseWait();
+
+                var url = "people/~/shares?format=json";
+                IN.API.Raw(url).method("POST").body(JSON.stringify(data)).result(function () {
+                    loading.hidePleaseWait();
+                }).error(function (error) {
+                    loading.hidePleaseWait();
+                    console.log(error);
+                });
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .card {
+            border: 0px solid black;
+            width: 25%;
+            min-width: 252px;
+            height: 100%;
+            min-height: 400px;
+            background-color: azure;
+            font-size: 14px;
+            padding-left: 12px;
+            padding-top: 5px;
+            margin-left: 15px;
+            margin-top: 50px;
+        }
+
+        h5 {
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <strong>
+                        WWL Employability Experience
+                    </strong>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="jumbotron" style="display:block; padding-left:25px;">
+            <table>
+                <tr>
+                    <td>
+                        <div class="card" style="width: 15rem; height:100%;">
+                            <div class="card-body">
+                                <h5 class="card-title">COMMUNICATE</h5>
+                                <div id="profileContainer" class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="card" style="width: 15rem; height:100%;">
+                            <div class="card-body">
+                                <h5 class="card-title">DISCOVER</h5>
+                                <div class="row">
+                                    <div class="col-sm-7" style="padding-left:10px;">
+                                        <input type="text" class="form-control" id="Title" style="width:132px;" placeholder="Key words">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Search</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <p class="card-text">Connection 1.</p>
+                                <p class="card-text">Connection 2.</p>
+                                <p class="card-text">Connection 3.</p>
+                                <p class="card-text">Connection 4.</p>
+                                <p class="card-text">Connection 5.</p>
+                                <p class="card-text">Connection 6.</p>
+                                <p class="card-text">Connection 7.</p>
+                                <p class="card-text">Connection 8.</p>
+                                <p class="card-text">......</p>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="width: 15rem; height:100%;">
+                            <div class="card-body">
+                                <h5 class="card-title">LEARN</h5>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                                <p class="card-text">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="width: 15rem; height:100%;">
+                            <div class="card-body">
+                                <h5 class="card-title">DEMONSTRATE</h5>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="comment">Comment</label>
+                                            <textarea id="Comment" rows="4" cols="20" class="form-control" aria-describedby="emailHelp" placeholder="Enter comment"></textarea>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="showContent">
+                                            <label class="form-check-label" for="showContent">Show content</label>
+                                        </div>
+
+                                        <div id="contentSection" class="hidden">
+                                            <hr />
+                                            <h4>Content</h4>
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <input type="text" class="form-control" id="Title" placeholder="Enter title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" id="Description" placeholder="Enter description">
+                                            </div><div class="form-group">
+                                                <label for="submitted-url">Submitted-url</label>
+                                                <input type="text" class="form-control" id="SubmittedUrl" placeholder="Enter submitted-url">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="submitted-image-url">Submitted-image-url</label>
+                                                <input type="text" class="form-control" id="SubmittedImageUrl" placeholder="Enter submitted-image-url">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="btnPublishNewActivity">Publish</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr />
+        <footer>
+            <p>&copy; 2018 - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script id="profileTemplate" type="text/x-jquery-tmpl">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="${pictureUrl}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div>${firstName}</div>
+        </div>
+
+        <div class="row">
+            <div>${lastName}</div>
+        </div>
+
+        <div class="row">
+            <div>${headline}</div>
+        </div>
+
+        <div class="row">
+            <div>He have ${numConnections} 1st degree connections</div>
+        </div>
+    </script>
+
+    <div class="modal fade" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document" style="padding-top:23%; width:0px; margin-left:45%; ">
+            <div class="modal-content" style="width:63px;">
+                <div class="modal-body">
+                    <img src="Images/loading_flower.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

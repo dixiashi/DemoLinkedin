@@ -1,0 +1,427 @@
+﻿@model DemoLinkedin.Models.IndexModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<style type="text/css">
+    .card {
+        border: 0px solid black;
+        width: 25%;
+        min-width: 252px;
+        height: 100%;
+        min-height: 400px;
+        background-color: azure;
+        font-size: 14px;
+        padding-left: 12px;
+        padding-top: 5px;
+        margin-left: 15px;
+    }
+</style>
+
+
+
+<div class="jumbotron" style="display:block; padding-left:25px;">
+    <table>
+        <tr>
+            <td>
+                <div class="card">
+                    <h4>COMMUNICATE</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img src="@Model.Profile.PictureUrl" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div>@Model.Profile.FirstName</div>
+                        </div>
+
+                        <div class="row">
+                            <div>@Model.Profile.LastName</div>
+                        </div>
+
+                        <div class="row">
+                            <div>@Model.Profile.HeadLine</div>
+                        </div>
+
+                        <div class="row">
+                            <div>He have @Model.Profile.NumConnections 1st degree connections</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="card">
+                    <h4>DISCOVER</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-7" style="padding-left:0px;">
+                                <input type="text" class="form-control" id="Title" style="width:152px;" placeholder="Key words">
+                            </div>
+                            <div class="col-sm-5">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Search</button>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Connection 1</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Connection 2</label>
+                            </div>
+                        </div> <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Connection 3</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Connection 4</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">......</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="card">
+                    <h4>LEARN</h4>
+                    <div class="container">
+                        <br />
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</label>
+                            </div>
+                        </div> <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">Welcome to pdets_dev's INF999x_QuicklyTest_2018!</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="comment">......</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="card">
+                    <h4>DEMONSTRATE</h4>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="comment">Comment</label>
+                                <textarea id="Comment" rows="4" cols="20" class="form-control" aria-describedby="emailHelp" placeholder="Enter comment"></textarea>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="showContent">
+                                <label class="form-check-label" for="showContent">Show content</label>
+                            </div>
+
+                            <div id="contentSection" class="hidden">
+                                <hr />
+                                <h4>Content</h4>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="Title" placeholder="Enter title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input type="text" class="form-control" id="Description" placeholder="Enter description">
+                                </div><div class="form-group">
+                                    <label for="submitted-url">Submitted-url</label>
+                                    <input type="text" class="form-control" id="SubmittedUrl" placeholder="Enter submitted-url">
+                                </div>
+                                <div class="form-group">
+                                    <label for="submitted-image-url">Submitted-image-url</label>
+                                    <input type="text" class="form-control" id="SubmittedImageUrl" placeholder="Enter submitted-image-url">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnPublishNewActivity">Publish</button>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="jumbotron">
+    <h2>
+        WWL Employability Experience
+    </h2>
+    <p class="lead">This is a demo about interacted with linkedin.</p>
+
+    <p>
+        @Html.ActionLink("Start »", "LinkedINAuth", "Home", new { area = "" }, new { @class = "btn btn-primary btn-lg" })
+    </p>
+
+    <div class="list-group">
+        <a id="showProfileInfo" data-toggle="modal" class="list-group-item list-group-item-action list-group-item-primary">1. View profile info</a>
+        <a id="publishNewStatus" data-toggle="modal" class="list-group-item list-group-item-action list-group-item-primary">2. Share my Experience</a>
+    </div>
+
+
+</div>
+
+<!-- Modal -->
+<div id="profileModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="profileModalTitle" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 400px; height: 200px;">
+        <div class="modal-content">
+            <div class="modal-header" style="height: 20px; padding-bottom: 30px; border-bottom-width: 1px;">
+                <h5 class="modal-title" id="profileModalTitle" style="float:left; width:80%">Profile Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="@Model.Profile.PictureUrl" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>@Model.Profile.FirstName</div>
+                    </div>
+
+                    <div class="row">
+                        <div>@Model.Profile.LastName</div>
+                    </div>
+
+                    <div class="row">
+                        <div>@Model.Profile.HeadLine</div>
+                    </div>
+
+                    <div class="row">
+                        <div>He have @Model.Profile.NumConnections 1st degree connections</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="publishNewStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="publishNewStatusModalTitle" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 400px; height: 200px;">
+        <div class="modal-content">
+            <div class="modal-header" style="height: 20px; padding-bottom: 40px; border-bottom-width: 1px;">
+                <h3 class="modal-title" id="publishNewStatusModalTitle" style="float:left; width:80%">Publish new activity</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="comment">Comment</label>
+                        <textarea id="Comment" rows="4" cols="20" class="form-control" aria-describedby="emailHelp" placeholder="Enter comment"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="showContent">
+                        <label class="form-check-label" for="showContent">Show content</label>
+                    </div>
+
+                    <div id="contentSection" class="hidden">
+                        <hr />
+                        <h4>Content</h4>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="Title" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="Description" placeholder="Enter description">
+                        </div><div class="form-group">
+                            <label for="submitted-url">Submitted-url</label>
+                            <input type="text" class="form-control" id="SubmittedUrl" placeholder="Enter submitted-url">
+                        </div>
+                        <div class="form-group">
+                            <label for="submitted-image-url">Submitted-image-url</label>
+                            <input type="text" class="form-control" id="SubmittedImageUrl" placeholder="Enter submitted-image-url">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnPublishNewActivity">Publish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document" style="padding-top:23%; width:0px; margin-left:45%; ">
+        <div class="modal-content" style="width:71px;">
+            <div class="modal-body">
+                <img src="~/Images/loading_flower.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function RedirectToGetAccessToken() {
+        if (!$("#profileModal img").attr("src")) {
+            window.location.href = "/Home/LinkedINAuth"
+            return true;
+        }
+
+        return false;
+    }
+
+    $("#showProfileInfo").on("click", function (event) {
+        if (RedirectToGetAccessToken()) {
+            return;
+        }
+
+        if (!$("#profileModal img").attr("src")) {
+            RedirectToGetAccessToken();
+            return;
+        }
+
+        $("#profileModal").modal('show');
+    });
+
+    $("#publishNewStatus").on("click", function (event) {
+        if (RedirectToGetAccessToken()) {
+            return;
+        }
+
+        $("#publishNewStatusModal").modal('show');
+    });
+
+    $("#btnPublishNewActivity").on("click", function (event) {
+
+        if (RedirectToGetAccessToken()) {
+            return;
+        }
+
+        var data = {};
+        if ($("#showContent").prop("checked")) {
+            var content = {};
+            $("form input[type='text']").each(function (index, value) {
+                content[$(value).attr("id")] = $(value).val();
+            });
+
+            data = {
+                comment: $("#Comment").val(),
+                content: content,
+            };
+
+        } else {
+            data = {
+                comment: $("#Comment").val(),
+            };
+        }
+
+        console.log(data);
+
+        loading.showPleaseWait();
+        $.ajax({
+            type: "post",
+            url: '/Home/PublishNewActivity',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                loading.hidePleaseWait();
+                $("#publishNewStatusModal").modal('hide');
+            },
+            error: function (a, b, c) {
+                loading.hidePleaseWait();
+            }
+        });
+    });
+
+    $("#showContent").on("change", function (event) {
+
+        if ($(this).prop("checked")) {
+            $("#contentSection").attr("class", "");
+
+        } else {
+            $("#contentSection").attr("class", "hidden");
+        }
+    });
+
+    var loading;
+    loading = loading || (function () {
+
+        return {
+            showPleaseWait: function () {
+                $("#pleaseWaitDialog").modal();
+            },
+            hidePleaseWait: function () {
+                $("#pleaseWaitDialog").modal('hide');
+            },
+
+        };
+    })();
+
+            //$("#pleaseWaitDialog").modal();
+            //setInterval(function () {
+            //    myApp.hidePleaseWait();
+            //}, 3000)
+</script>
